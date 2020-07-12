@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">MyWeather</string>
+    <string name="city">Select city</string>
+    <string name="result">Show weather</string>
+    <string name="effect">Weather information</string>
+    <string name="title_activity_weather_result">WeatherResultActivity</string>
+    <string name="title_result_weather">ResultWeather</string>
+    <string name="send">Send...</string>
+    <string name="parameter_selection">Parameter selection</string>
+    <string name="check_pressure">pressure</string>
+    <string name="check_wind">wind</string>
+    <string name="Result_pressure">Pressure: </string>
+    <string name="Result_wind">Wind: </string>
+    <string name="Result_temperature">Temperature: </string>
+    <string name="no_photo">no photo</string>
+
+    <string-array name="city_specifications">
+        <item>Moscow</item>
+        <item>Samara</item>
+        <item>Kazan</item>
+    </string-array>
+
+</resources>

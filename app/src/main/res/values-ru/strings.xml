@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">MyWeather</string>
+    <string name="city">Выбор города</string>
+    <string name="result">Узнать погоду</string>
+    <string name="effect">Прогноз погоды</string>
+    <string name="title_activity_weather_result">WeatherResultActivity</string>
+    <string name="title_result_weather">Прогноз погоды</string>
+    <string name="send">Отправить...</string>
+    <string name="parameter_selection">Выбор параметра</string>
+    <string name="check_pressure">давление</string>
+    <string name="check_wind">ветер</string>
+
+
+
+    <string-array name="city_specifications">
+        <item>Москва</item>
+        <item>Самара</item>
+        <item>Казань</item>
+    </string-array>
+    <string name="Result_pressure">"Давление: "</string>
+    <string name="Result_wind">"Ветер: "</string>
+    <string name="Result_temperature">"Температура: "</string>
+
+</resources>
