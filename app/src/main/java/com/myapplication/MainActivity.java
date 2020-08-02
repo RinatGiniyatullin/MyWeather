@@ -1,6 +1,7 @@
 package com.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
@@ -12,50 +13,39 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
 import static com.myapplication.WeatherResultFragment.PRESSURE;
+import static com.myapplication.WeatherResultFragment.WEATHER_ID;
 import static com.myapplication.WeatherResultFragment.WIND;
 
 public class MainActivity extends AppCompatActivity implements WeatherListFragment.WeatherListListener {
 
-    public static final String TAG = MainActivity.class.getSimpleName();
+    //   public static final String TAG = MainActivity.class.getSimpleName();
     private static final String PRESSURE_POSITION = "p";
     private static final String WIND_POSITION = "w";
-    private static boolean CHECK_PRESSURE;
-    private static boolean CHECK_WIND;
+    static boolean CheckPressure;
+    static boolean CheckWind;
     private CheckBox checkPressure;
     private CheckBox checkWind;
     private SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //      Log.d(TAG, "Create");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, R.layout.list_item, getStringArray(Weather.weathers));
-//        listView = findViewById(R.id.list_city);
-//        listView.setAdapter(listAdapter);
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                setCitiesWeather(id);
-//            }
-//        });
-
         sharedPref = getPreferences(Context.MODE_PRIVATE);
         checkPressure = findViewById(R.id.check_pressure);
         checkWind = findViewById(R.id.check_wind);
         checkPressure.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                CHECK_PRESSURE = isChecked;
+                CheckPressure = isChecked;
             }
         });
         checkWind.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                CHECK_WIND = isChecked;
+                CheckWind = isChecked;
             }
         });
-
         checkPressure.setChecked(getPreferences(MODE_PRIVATE).getBoolean(WIND_POSITION, false));
         checkWind.setChecked(getPreferences(MODE_PRIVATE).getBoolean(PRESSURE_POSITION, false));
     }
@@ -77,8 +67,8 @@ public class MainActivity extends AppCompatActivity implements WeatherListFragme
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
             Bundle bundle = new Bundle();
-            bundle.putBoolean(PRESSURE, CHECK_PRESSURE);
-            bundle.putBoolean(WIND, CHECK_WIND);
+            bundle.putBoolean(PRESSURE, CheckPressure);
+            bundle.putBoolean(WIND, CheckWind);
             resultFragment.setArguments(bundle);
 
             resultFragment.setWeather(id);
@@ -87,11 +77,9 @@ public class MainActivity extends AppCompatActivity implements WeatherListFragme
         } else {
             Intent intent = new Intent(this, DetailActivity.class);
             intent.putExtra(DetailActivity.EXTRA_WEATHER_ID, (int) id);
-            intent.putExtra(PRESSURE, CHECK_PRESSURE);
-            intent.putExtra(WIND, CHECK_WIND);
+            intent.putExtra(PRESSURE, CheckPressure);
+            intent.putExtra(WIND, CheckWind);
             startActivity(intent);
         }
-
-
     }
 }

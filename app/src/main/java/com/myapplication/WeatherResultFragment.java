@@ -15,8 +15,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import static android.os.Build.ID;
+
 public class WeatherResultFragment extends Fragment {
-    private static final String ID = "id";
+    final static String WEATHER_ID = "id";
     private long weatherId;
 
     protected final static String RESULT_ACTIVITY_STRING = "intent";
@@ -29,20 +31,19 @@ public class WeatherResultFragment extends Fragment {
     private TextView resultPressure;
     private TextView resultWind;
     private Button buttonSend;
-    private Boolean pressure;
-    private Boolean wind;
-    private SharedPreferences shPref;
-
+    private boolean pressure;
+    private boolean wind;
+//private final static String DETAIL_FRAGMENT_TAG="2da29b6a-b234-4983-9636-a55a14837bdd";
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+
         pressure = getArguments().getBoolean(PRESSURE);
         wind = getArguments().getBoolean(WIND);
         if (savedInstanceState != null) {
-            weatherId = savedInstanceState.getLong(ID);
-
+            weatherId = savedInstanceState.getLong(WEATHER_ID);
         }
         return inflater.inflate(R.layout.fragment_weather_result, container, false);
     }
@@ -94,7 +95,6 @@ public class WeatherResultFragment extends Fragment {
         // if (intent.resolveActivity(getPackageManager()) != null) {      //защита от скрашивания
         startActivity(intent);
     }
-
 
     public void setWeather(long id) {
         this.weatherId = id;
