@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements WeatherListFragme
 
     @Override
     public void itemClicked(long id) {
-        View fragmentContainer = findViewById(R.id.weather_detail);
+        View fragmentContainer = findViewById(R.id.fragment_container);
         if (fragmentContainer != null) {
             WeatherResultFragment resultFragment = new WeatherResultFragment();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements WeatherListFragme
             resultFragment.setArguments(bundle);
 
             resultFragment.setWeather(id);
-            transaction.replace(R.id.weather_detail, resultFragment);
+            transaction.replace(R.id.fragment_container, resultFragment);
             transaction.commit();
         } else {
             Intent intent = new Intent(this, DetailActivity.class);

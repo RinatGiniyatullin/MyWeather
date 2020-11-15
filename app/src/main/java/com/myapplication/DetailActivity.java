@@ -4,6 +4,7 @@ package com.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -38,31 +39,36 @@ public class DetailActivity extends AppCompatActivity {
         newInstance(CheckPressure, CheckWind, weatherId);
 
         Bundle bundle = getIntent().getExtras();
-        pressure = bundle.getBoolean(PRESSURE);
-        wind = bundle.getBoolean(WIND);
+        Weather weather = Weather.weathers[weatherId];
         title = findViewById(R.id.text_title);
-        Weather weather = Weather.weathers[(int) weatherId];
         title.setText(weather.getName());
         resultTemperature = findViewById(R.id.result_temperature);
         resultTemperature.setText(resultTemperature.getText() + weather.getTemperature());
         imageWeather = findViewById(R.id.image_weather);
         imageWeather.setImageResource(weather.getImageResourceId());
+        pressure = bundle.getBoolean(PRESSURE);
         resultPressure = findViewById(R.id.result_pressure);
         if (pressure) {
             resultPressure.setText(resultPressure.getText() + weather.getPressure());
         } else {
             resultPressure.setVisibility(View.GONE);
         }
-
+        wind = bundle.getBoolean(WIND);
         resultWind = findViewById(R.id.result_wind);
         if (wind) {
             resultWind.setText(resultWind.getText() + weather.getWind());
         } else {
             resultWind.setVisibility(View.GONE);
         }
-
-        // weatherResultFragment.setWeather(weatherId);    //не работает!!!
+//        buttonSend = findViewById(R.id.send);
+//        buttonSend.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                sendWeather();
+//            }
+//        });
     }
+
 
     public static Fragment newInstance(boolean pressure, boolean wind, long id) {
         Fragment fragment = new WeatherResultFragment();
@@ -73,4 +79,16 @@ public class DetailActivity extends AppCompatActivity {
         fragment.setArguments(bundle);
         return fragment;
     }
+
+    public void sendWeather() {
+        String message = (String) resultTemperature.getText();
+        // String message = getArguments().getString(RESULT_ACTIVITY_STRING);
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        // intent.addCategory(Intent.CATEGORY_HOME);     //для проверки защиты от скрашивания
+        intent.setType("text/plane");
+        intent.putExtra(Intent.EXTRA_TEXT, message);
+        // if (intent.resolveActivity(getPackageManager()) != null) {      //защита от скрашивания
+        startActivity(intent);
+    }
+
 }
