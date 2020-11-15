@@ -2,7 +2,6 @@ package com.myapplication;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
@@ -18,52 +17,39 @@ import static com.myapplication.WeatherResultFragment.PRESSURE;
 import static com.myapplication.WeatherResultFragment.WIND;
 
 public class DetailFragment extends Fragment {
-    private boolean pressure;
-    private boolean wind;
     private TextView resultTemperature;
-    private TextView resultPressure;
-    private TextView resultWind;
-    private Button buttonSend;
     private long weatherId;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = getView();
-        if (view != null) {
-        //if (savedInstanceState != null) {
-
-            Weather weather = Weather.weathers[(int) weatherId];
-            resultTemperature = view.findViewById(R.id.result_temperature);
-            resultTemperature.setText(resultTemperature.getText() + weather.getTemperature());
-            pressure = getArguments().getBoolean(PRESSURE);
-            resultPressure = view.findViewById(R.id.result_pressure);
-            if (pressure) {
-                resultPressure.setText(resultPressure.getText() + weather.getPressure());
-            } else {
-                resultPressure.setVisibility(View.GONE);
-            }
-            wind = getArguments().getBoolean(WIND);
-            resultWind = view.findViewById(R.id.result_wind);
-            if (wind) {
-                resultWind.setText(resultWind.getText() + weather.getWind());
-            } else {
-                resultWind.setVisibility(View.GONE);
-            }
-            buttonSend = view.findViewById(R.id.send);
-            buttonSend.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    sendWeather();
-                }
-            });
-        }
         View layout = inflater.inflate(R.layout.activity_detail_fragment, container, false);
-
-
+        Weather weather = Weather.weathers[(int) weatherId];
+        resultTemperature = layout.findViewById(R.id.result_temperature);
+        resultTemperature.setText(resultTemperature.getText() + weather.getTemperature());
+        boolean pressure = getArguments().getBoolean(PRESSURE);
+        TextView resultPressure = layout.findViewById(R.id.result_pressure);
+        if (pressure) {
+            resultPressure.setText(resultPressure.getText() + weather.getPressure());
+        } else {
+            resultPressure.setVisibility(View.GONE);
+        }
+        boolean wind = getArguments().getBoolean(WIND);
+        TextView resultWind = layout.findViewById(R.id.result_wind);
+        if (wind) {
+            resultWind.setText(resultWind.getText() + weather.getWind());
+        } else {
+            resultWind.setVisibility(View.GONE);
+        }
+        Button buttonSend = layout.findViewById(R.id.send);
+        buttonSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendWeather();
+            }
+        });
         return layout;
-
     }
 
     public void sendWeather() {

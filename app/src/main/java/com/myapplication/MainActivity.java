@@ -64,14 +64,14 @@ public class MainActivity extends AppCompatActivity implements WeatherListFragme
         View fragmentContainer = findViewById(R.id.fragment_container);
         if (fragmentContainer != null) {
             WeatherResultFragment resultFragment = new WeatherResultFragment();
+            resultFragment.setWeather(id);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-            Bundle bundle = new Bundle();
-            bundle.putBoolean(PRESSURE, CheckPressure);
-            bundle.putBoolean(WIND, CheckWind);
-            resultFragment.setArguments(bundle);
-
-            resultFragment.setWeather(id);
+//            Bundle bundle = new Bundle();
+//            bundle.putBoolean(PRESSURE, CheckPressure);
+//            bundle.putBoolean(WIND, CheckWind);
+//             resultFragment.setArguments(bundle);
+//            resultFragment.setWeather(id);
             transaction.replace(R.id.fragment_container, resultFragment);
             transaction.commit();
         } else {
